@@ -1,0 +1,90 @@
+name: tenvini
+description: A new Flutter project.
+# The following line prevents the package from being accidentally published to
+# pub.dev using `flutter pub publish`. This is preferred for private packages.
+publish_to: 'none' # Remove this line if you wish to publish to pub.dev
+
+# The following defines the version and build number for your application.
+# A version number is three numbers separated by dots, like 1.2.43
+# followed by an optional build number separated by a +.
+# Both the version and the builder number may be overridden in flutter
+# build by specifying --build-name and --build-number, respectively.
+# In Android, build-name is used as versionName while build-number used as versionCode.
+# Read more about Android versioning at https://developer.android.com/studio/publish/versioning
+# In iOS, build-name is used as CFBundleShortVersionString while build-number is used as CFBundleVersion.
+# Read more about iOS versioning at
+# https://developer.apple.com/library/archive/documentation/General/Reference/InfoPlistKeyReference/Articles/CoreFoundationKeys.html
+# In Windows, build-name is used as the major, minor, and patch parts
+# of the product and file versions while build-number is used as the build suffix.
+version: 1.0.10+11
+
+environment:
+  sdk: '>=2.19.6 <3.0.0'
+
+dependencies:
+  flutter:
+    sdk: flutter
+  get: ^4.6.5
+  connectivity_plus: ^2.3.6
+  shared_preferences: ^2.0.15
+  #cached_network_image: ^3.2.1
+
+
+  flutter_svg: ^1.1.6
+  progress_dialog_null_safe: ^1.0.7
+  dio: ^5.2.0
+  get_storage: ^2.0.3
+  http: ^0.13.3
+  google_fonts: ^2.3.2
+  http_parser: ^4.0.0
+  image_picker: ^0.8.5
+  permission_handler: ^10.2.0
+  open_file_safe: ^3.2.3
+  flutter_easyloading: ^3.0.5
+  dropdown_search: ^5.0.6
+  intl: ^0.18.0
+  webview_flutter: ^4.4.2
+  shimmer: ^2.0.0
+  flutter_image_compress: ^2.1.0
+  #webview_flutter_wkwebview:
+  cached_network_image: ^3.3.1
+  #flutter_stripe:
+  field_suggestion: ^0.2.5
+  animated_bottom_navigation_bar: ^1.3.3
+  auto_size_text: ^3.0.0
+  circular_reveal_animation: ^2.0.1
+
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+  flutter_launcher_icons: "^0.13.1"
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/img_newlogo12.png"
+  min_sdk_android: 21 # android min sdk min:16, default 21
+
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/
+    - assets/images/
+  fonts:
+    - family: Darker Grotesque
+      fonts:
+        - asset: assets/fonts/DarkerGrotesqueMedium.ttf
+          weight: 500
+        - asset: assets/fonts/DarkerGrotesqueBold.ttf
+          weight: 700
+        - asset: assets/fonts/DarkerGrotesqueSemiBold.ttf
+          weight: 600
+        - asset: assets/fonts/DarkerGrotesqueRegular.ttf
+          weight: 400
+    - family: Poppins
+      fonts:
+        - asset: assets/fonts/PoppinsMedium.ttf
+          weight: 500
+        - asset: assets/fonts/PoppinsRegular.ttf
+          weight: 400

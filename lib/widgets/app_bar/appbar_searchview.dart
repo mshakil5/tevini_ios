@@ -1,0 +1,42 @@
+import 'package:tenvini/core/app_export.dart';
+import 'package:tenvini/widgets/custom_search_view.dart';
+import 'package:flutter/material.dart';
+
+// ignore: must_be_immutable
+class AppbarSearchview extends StatelessWidget {
+  AppbarSearchview({
+    Key? key,
+    this.hintText,
+    this.controller,
+    this.margin,
+  }) : super(
+          key: key,
+        );
+
+  String? hintText;
+
+  TextEditingController? controller;
+
+  EdgeInsetsGeometry? margin;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: margin ?? EdgeInsets.zero,
+      child: CustomSearchView(
+        width: 198.h,
+        controller: controller,
+        hintText: "lbl_search".tr,
+        suffix: Container(
+          margin: EdgeInsets.fromLTRB(30.h, 5.v, 7.h, 5.v),
+          child: CustomImageView(
+            svgPath: ImageConstant.imgSearch,
+          ),
+        ),
+        suffixConstraints: BoxConstraints(
+          maxHeight: 24.v,
+        ),
+      ),
+    );
+  }
+}
