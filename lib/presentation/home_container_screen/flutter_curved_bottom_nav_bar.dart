@@ -11,7 +11,6 @@ import '../../core/fab_bar/fab_bottom_app_bar_item.dart';
 
 import 'package:get/get.dart';
 
-import '../../widgets/custom_outlined_button.dart';
 
 class CurvedNavBar extends StatefulWidget {
   /// list of [FABBottomAppBarItem] items

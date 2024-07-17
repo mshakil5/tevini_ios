@@ -7,7 +7,6 @@ import 'package:tenvini/core/app_export.dart';
 import 'package:flutter/material.dart';
 
 import 'flutter_curved_bottom_nav_bar.dart';
-import 'dart:io';
 
 
 class HomeContainerScreen extends GetWidget<HomeContainerController> {

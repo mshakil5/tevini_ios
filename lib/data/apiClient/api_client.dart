@@ -1,26 +1,20 @@
 import 'dart:convert';
-import 'dart:ffi';
 import 'dart:io';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:dio/dio.dart';
 import 'package:dio/dio.dart' as dio;
-import 'package:dio/io.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get_utils/src/platform/platform.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:open_file_safe/open_file_safe.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:permission_handler/permission_handler.dart';
 
-import '../../core/values/app_config.dart';
 import '../../main.dart';
-import '../app_getstorages.dart';
 import '../helper.dart';
 import '../snackbar.dart';
-import '/../pk.dart';
 
 class ApiClient {
   late Dio _dio;

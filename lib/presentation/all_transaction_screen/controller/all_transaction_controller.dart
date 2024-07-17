@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:tenvini/core/app_export.dart';
-import 'package:tenvini/presentation/all_transaction_screen/models/all_transaction_model.dart';
 
 /// A controller class for the AllTransactionScreen.
 ///

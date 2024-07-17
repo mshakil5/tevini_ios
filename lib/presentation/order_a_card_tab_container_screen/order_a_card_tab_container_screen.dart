@@ -1,6 +1,3 @@
-import 'package:tenvini/presentation/frame_18705_screen/frame_18705_screen.dart';
-import 'package:tenvini/presentation/frame_18706_screen/frame_18706_screen.dart';
-import 'package:tenvini/presentation/update_cardholder_screen/update_cardholder_screen.dart';
 
 import '../side_menu_draweritem/controller/side_menu_controller.dart';
 import '../side_menu_draweritem/side_menu_draweritem.dart';

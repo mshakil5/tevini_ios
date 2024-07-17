@@ -1,5 +1,4 @@
 import 'package:tenvini/core/app_export.dart';
-import 'package:tenvini/presentation/donation_record_screen/models/donation_record_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/values/app_url.dart';

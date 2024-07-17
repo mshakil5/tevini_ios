@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import 'package:get/get.dart';
 import 'package:tenvini/core/app_export.dart';
 
 import '../../../../core/utils/validation_functions.dart';
@@ -8,7 +7,6 @@ import '../../../../main.dart';
 import '../../../../widgets/app_bar/appbar_image.dart';
 import '../../../../widgets/app_bar/custom_app_bar.dart';
 import '../../../../widgets/custom_elevated_button.dart';
-import '../../../../widgets/custom_outlined_button.dart';
 import '../../../../widgets/custom_text_form_field.dart';
 import '../controllers/charity_link_controller.dart';
 

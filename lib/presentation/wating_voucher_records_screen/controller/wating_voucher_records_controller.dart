@@ -1,5 +1,4 @@
 import 'package:tenvini/core/app_export.dart';
-import 'package:tenvini/presentation/wating_voucher_records_screen/models/wating_voucher_records_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/values/app_helper.dart';

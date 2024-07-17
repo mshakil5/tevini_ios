@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 
-import '../../../../core/values/app_url.dart';
 import '../../../../data/apiClient/api_client.dart';
-import '../../../../data/models/home/dashboard_model.dart';
-import '../../../../main.dart';
 
 class CharityTransctionController extends GetxController
     with GetSingleTickerProviderStateMixin {

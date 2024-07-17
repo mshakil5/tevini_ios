@@ -4,7 +4,6 @@ import 'package:tenvini/core/values/app_space.dart';
 import 'package:tenvini/data/models/home/dashboard_model.dart';
 import 'package:tenvini/presentation/side_menu_draweritem/controller/side_menu_controller.dart';
 import '../../core/values/app_assets.dart';
-import '../../currency/currency_screen.dart';
 import '../../currency/model/rates_model.dart';
 import '../../currency/widgets/conversion_card.dart';
 import '../../main.dart';

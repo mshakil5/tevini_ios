@@ -55,6 +55,7 @@ dependencies:
   circular_reveal_animation: ^2.0.1
 
 
+  path_provider: any
 dev_dependencies:
   flutter_test:
     sdk: flutter

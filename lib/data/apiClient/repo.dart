@@ -1,10 +1,7 @@
 import 'dart:convert';
-import 'dart:convert';
 import 'package:http/io_client.dart';
 import 'dart:io';
 import 'package:flutter/foundation.dart';
-import 'package:get/get.dart';
-import 'package:http/http.dart' as https;
 import 'package:tenvini/data/models/home/dashboard_model.dart';
 
 import '../../core/values/app_url.dart';

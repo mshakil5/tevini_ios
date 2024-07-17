@@ -1,12 +1,8 @@
-import 'dart:convert';
-import 'dart:ffi';
 
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
 import 'package:tenvini/core/app_export.dart';
-import 'package:tenvini/presentation/all_transaction_screen/models/all_transaction_model.dart';
 import 'package:tenvini/presentation/donation_record_screen/models/donation_record_model.dart';
-import 'package:tenvini/presentation/home_page/models/home_model.dart';
 import 'package:flutter/material.dart';
 
 import '../../../core/values/app_helper.dart';
@@ -15,7 +11,6 @@ import '../../../currency/model/currencies_model.dart';
 import '../../../currency/model/rates_model.dart';
 import '../../../currency/res/app_url.dart';
 import '../../../data/apiClient/api_client.dart';
-import '../../../data/apiClient/repo.dart';
 import '../../../data/models/await_confirmation_model.dart';
 import '../../../data/models/donation_calculator_model.dart';
 import '../../../data/models/donation_details_model.dart';
@@ -25,11 +20,7 @@ import '../../../data/models/user_profile_model.dart';
 import '../../../main.dart';
 import '../../make_a_donation_screen/models/make_a_donation_model.dart';
 import '../../my_profile_screen/controller/my_profile_controller.dart';
-import '../../my_profile_screen/models/my_profile_model.dart';
 import '../../order_record_screen/models/order_record_model.dart';
-import '../../order_voucher_books_screen/models/order_voucher_books_model.dart';
-import '../../standing_donation_records_screen/models/standing_donation_records_model.dart';
-import '../../wating_voucher_records_screen/models/wating_voucher_records_model.dart';
 
 import 'package:http/http.dart' as http;
 class HomeController extends GetxController {

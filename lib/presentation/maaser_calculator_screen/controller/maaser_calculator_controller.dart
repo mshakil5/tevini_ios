@@ -14,7 +14,6 @@ import '../../../data/models/donation_details_model.dart';
 import '../../../data/models/home/dropdown_model.dart';
 import '../../../main.dart';
 import '../../home_page/controller/home_controller.dart';
-import '../maaser_calculator_screen.dart';
 
 class MaaserCalculatorController extends GetxController {
   HomeController controller2 = Get.find();

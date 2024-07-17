@@ -1,23 +1,17 @@
 import 'package:dropdown_search/dropdown_search.dart';
-import 'package:flutter_easyloading/flutter_easyloading.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 import 'package:tenvini/core/values/app_space.dart';
 
-import '../../core/values/app_assets.dart';
 import '../../data/models/home/dropdown_model.dart';
 import '../../main.dart';
-import '../home_page/controller/home_controller.dart';
 import '../make_a_donation_screen/models/make_a_donation_model.dart';
 import '../side_menu_draweritem/controller/side_menu_controller.dart';
 import '../side_menu_draweritem/side_menu_draweritem.dart';
 import 'controller/make_a_donation_one_controller.dart';
 import 'package:tenvini/core/app_export.dart';
 import 'package:tenvini/widgets/app_bar/appbar_image.dart';
-import 'package:tenvini/widgets/app_bar/appbar_title.dart';
 import 'package:tenvini/widgets/app_bar/custom_app_bar.dart';
 import 'package:tenvini/widgets/custom_checkbox_button.dart';
-import 'package:tenvini/widgets/custom_drop_down.dart';
 import 'package:tenvini/widgets/custom_outlined_button.dart';
 import 'package:tenvini/widgets/custom_text_form_field.dart';
 import 'package:flutter/material.dart';
@@ -513,7 +507,7 @@ class MakeADonationOneScreen extends GetWidget<MakeADonationOneController> {
           ),
           onChanged: (dataValue) {
             controller.selectedItem.value=dataValue!.name??'';
-            controller.benifiID.value = dataValue!.id;
+            controller.benifiID.value = dataValue.id;
             controller.isClearDropdown.value=false;
 
 

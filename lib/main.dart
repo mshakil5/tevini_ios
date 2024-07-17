@@ -5,14 +5,9 @@ import 'package:flutter/services.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tenvini/routes/app_routes.dart';
-import 'package:tenvini/theme/theme_helper.dart';
 import 'package:tenvini/widgets/custom_outlined_button.dart';
 import 'core/app_export.dart';
-import 'core/utils/logger.dart';
-import 'localization/app_localization.dart';
 
-import 'package:http/http.dart' as http;
 
 class MyHttpOverrides extends HttpOverrides {
   @override

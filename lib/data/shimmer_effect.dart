@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:shimmer/shimmer.dart';
@@ -25,7 +24,7 @@ class ShimmerLoading {
                 margin: const EdgeInsets.fromLTRB(20, 20, 19.9, 0),
                 child: Shimmer.fromColors(
                   highlightColor: Colors.white,
-                  baseColor: _shimmerColor!,
+                  baseColor: _shimmerColor,
                   period: const Duration(milliseconds: 3000),
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -112,7 +111,7 @@ class ShimmerLoading {
             margin: EdgeInsets.only(left: index == 0 ? 0 : 12),
             child: Shimmer.fromColors(
               highlightColor: AppColors.cyan,
-              baseColor: _shimmerColor!,
+              baseColor: _shimmerColor,
               child: Container(
                 child: ClipRRect(
                   borderRadius: BorderRadius.all(
@@ -121,7 +120,7 @@ class ShimmerLoading {
                   child: Container(
                     width: boxImageSize,
                     height: boxImageSize,
-                    color: _shimmerColor!,
+                    color: _shimmerColor,
                   ),
                 ),
               ),
@@ -151,7 +150,7 @@ class ShimmerLoading {
               child:
               Shimmer.fromColors(
                 highlightColor:AppColors.primaryColor,
-                baseColor: _shimmerColor!,
+                baseColor: _shimmerColor,
                 period: Duration(milliseconds: 1000),
                 child: Container(
                   height: boxImageSize-50,
@@ -163,7 +162,7 @@ class ShimmerLoading {
                         child: Container(
                           width: double.infinity,
                           height: boxImageSize-70,
-                          color: _shimmerColor!,
+                          color: _shimmerColor,
                         ),
                       ),
                       Container(
@@ -176,7 +175,7 @@ class ShimmerLoading {
                             Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10.0),
-                                color: _shimmerColor!,
+                                color: _shimmerColor,
                               ),
                               height: 12,
                             ),
@@ -186,7 +185,7 @@ class ShimmerLoading {
                             Container(
                               decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(10.0),
-                                color: _shimmerColor!,
+                                color: _shimmerColor,
                               ),
                               height: 12,
                             ),
@@ -231,7 +230,7 @@ class ShimmerLoading {
                 child:
                 Shimmer.fromColors(
                   highlightColor:AppColors.primaryColor,
-                  baseColor: _shimmerColor!,
+                  baseColor: _shimmerColor,
                   period: Duration(milliseconds: 1000),
                   child:
 

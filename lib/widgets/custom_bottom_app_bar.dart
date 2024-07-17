@@ -1,10 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:get/get_rx/src/rx_types/rx_types.dart';
-import 'package:get/get.dart';
 import 'package:tenvini/core/app_export.dart';
-import '../core/utils/image_constant.dart';
-import '../theme/app_decoration.dart';
-import 'custom_image_view.dart';
 
 class CustomBottomAppBar extends StatelessWidget {
   CustomBottomAppBar({Key? key, this.onChanged}) : super(key: key);

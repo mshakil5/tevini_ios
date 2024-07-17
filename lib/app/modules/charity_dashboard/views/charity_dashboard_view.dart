@@ -1,14 +1,10 @@
-import 'dart:ffi';
 
 import 'package:flutter/material.dart';
 
-import 'package:get/get.dart';
 import 'package:tenvini/core/app_export.dart';
 import 'package:tenvini/core/values/app_space.dart';
 
 import '../../../../main.dart';
-import '../../../../theme/app_decoration.dart';
-import '../../../../theme/custom_text_style.dart';
 import '../../../../widgets/app_bar/appbar_image.dart';
 import '../../../../widgets/app_bar/custom_app_bar.dart';
 import '../../../../widgets/custom_outlined_button.dart';

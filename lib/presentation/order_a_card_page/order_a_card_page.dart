@@ -161,11 +161,9 @@ class OrderACardPage extends StatelessWidget {
 }
 */
 
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
-import 'package:get/get.dart';
 import 'package:tenvini/core/app_export.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 

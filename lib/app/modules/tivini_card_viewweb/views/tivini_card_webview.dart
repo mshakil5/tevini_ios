@@ -1,12 +1,5 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:webview_flutter/webview_flutter.dart';
-import '../../../../core/utils/image_constant.dart';
-import '../../../../core/values/app_assets.dart';
-import '../../../../data/cart_local_store.dart';
-import '../../../../data/helper.dart';
-import '../controllers/tivini_card_webview_controller.dart';
 
 /*
 class TiviniCardWebView
@@ -81,8 +74,6 @@ class TiviniCardWebView
 */
 
 
-import 'package:flutter/material.dart';
-import 'package:webview_flutter/webview_flutter.dart';
 
 class TiviniCardWebView extends StatefulWidget {
   static const routeName = "/privacy_policy";

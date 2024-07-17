@@ -1,6 +1,5 @@
 import 'package:intl/intl.dart';
 import 'package:tenvini/core/values/app_space.dart';
-import 'package:tenvini/presentation/all_transaction_screen/models/all_transaction_model.dart';
 import 'package:tenvini/presentation/home_page/controller/home_controller.dart';
 
 import '../../core/values/app_assets.dart';
@@ -12,10 +11,7 @@ import '../side_menu_draweritem/side_menu_draweritem.dart';
 import 'controller/all_transaction_controller.dart';
 import 'package:tenvini/core/app_export.dart';
 import 'package:tenvini/widgets/app_bar/appbar_image.dart';
-import 'package:tenvini/widgets/app_bar/appbar_title.dart';
 import 'package:tenvini/widgets/app_bar/custom_app_bar.dart';
-import 'package:tenvini/widgets/custom_icon_button.dart';
-import 'package:tenvini/widgets/custom_outlined_button.dart';
 import 'package:flutter/material.dart';
 
 class AllTransactionScreen extends GetWidget<AllTransactionController> {
@@ -426,7 +422,7 @@ class AllTransactionScreen extends GetWidget<AllTransactionController> {
                   CustomTitleKeyValue(
                     titleKey: 'Date',
                     titleValue:
-                        model.createdAt?.toIso8601String().substring(0, 10),
+                        model.createdAt.toIso8601String().substring(0, 10),
                   ),
                   CustomTitleKeyValue(
                       titleKey: 'Description ',

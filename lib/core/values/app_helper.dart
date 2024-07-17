@@ -312,7 +312,7 @@ extension StringExtension on String {
 Widget titleTextWidget({required String text}) {
   return Text(
     text.tr,
-    style: Get.textTheme.caption!,
+    style: Get.textTheme.bodySmall!,
   );
 }
 

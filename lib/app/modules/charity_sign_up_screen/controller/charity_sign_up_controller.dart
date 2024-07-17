@@ -1,23 +1,14 @@
 import 'dart:convert';
 import 'dart:io';
-import 'dart:convert';
 import 'package:field_suggestion/box_controller.dart';
 import 'package:http/io_client.dart';
-import 'dart:io';
-import 'package:http/http.dart';
 import 'dart:async';
-import 'dart:convert';
 import 'package:flutter/foundation.dart';
 import 'package:progress_dialog_null_safe/progress_dialog_null_safe.dart';
 import 'package:tenvini/core/app_export.dart';
-import 'package:tenvini/presentation/sign_in_screen/models/sign_in_model.dart';
 import 'package:flutter/material.dart';
 
-import 'package:flutter/foundation.dart';
-import 'package:progress_dialog_null_safe/progress_dialog_null_safe.dart';
-import 'package:tenvini/core/app_export.dart';
 import 'package:tenvini/presentation/sign_up_screen/models/sign_up_model.dart';
-import 'package:flutter/material.dart';
 
 
 import 'package:http/http.dart' as http;

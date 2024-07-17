@@ -1,4 +1,3 @@
-import 'app_config.dart';
 
 class ApiURL {
   ApiURL._();

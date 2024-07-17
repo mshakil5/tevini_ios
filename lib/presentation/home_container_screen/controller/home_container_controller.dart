@@ -1,18 +1,12 @@
 import 'package:flutter/cupertino.dart';
-import 'package:flutter_svg/svg.dart';
 import 'package:tenvini/core/app_export.dart';
 import 'package:tenvini/core/values/app_space.dart';
 import 'package:tenvini/data/models/home/dashboard_model.dart';
-import 'package:tenvini/presentation/all_transaction_screen/all_transaction_screen.dart';
 import 'package:tenvini/presentation/home_container_screen/models/home_container_model.dart';
-import 'package:tenvini/presentation/transafer_tdf_screen/transfer_tdf_screen.dart';
 
 import '../../../core/values/app_assets.dart';
-import '../../../data/apiClient/repo.dart';
-import '../../donation_record_screen/donation_record_screen.dart';
 import '../../home_page/controller/home_controller.dart';
 import '../../home_page/home_page.dart';
-import '../../my_profile_screen/my_profile_screen.dart';
 
 class HomeContainerController extends GetxController {
   Rx<HomeContainerModel> homeContainerModelObj = HomeContainerModel().obs;

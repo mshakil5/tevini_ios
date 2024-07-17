@@ -9,11 +9,9 @@ import '../../../data/apiClient/api_client.dart';
 import '../../../data/models/home/dropdown_model.dart';
 import '../../../data/models/user_profile_model.dart';
 import '../../../main.dart';
-import '../../donation_record_screen/controller/donation_record_controller.dart';
 import '../../home_page/controller/home_controller.dart';
 import '../../make_a_donation_screen/models/make_a_donation_model.dart';
 import '../../standing_donation_records_screen/controller/standing_donation_records_controller.dart';
-import '../make_a_donation_one_screen.dart';
 
 
 class MakeADonationOneController extends GetxController {

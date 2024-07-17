@@ -1,12 +1,9 @@
-import 'dart:convert';
 
 import 'package:field_suggestion/field_suggestion.dart';
 import 'package:tenvini/core/values/app_space.dart';
 
 import '../../data/models/address_model.dart';
 import '../../data/models/home/dropdown_model.dart';
-import '../../widgets/app_bar/appbar_image.dart';
-import '../../widgets/app_bar/custom_app_bar.dart';
 import 'controller/sign_up_controller.dart';
 import 'package:tenvini/core/app_export.dart';
 import 'package:tenvini/core/utils/validation_functions.dart';

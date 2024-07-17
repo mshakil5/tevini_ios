@@ -2,7 +2,6 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:get/get.dart';
 import 'package:tenvini/core/utils/pref_utils.dart';
-import 'package:tenvini/presentation/home_page/controller/home_controller.dart';
 
 import '../../data/apiClient/api_client.dart';
 import '../network/network_info.dart';

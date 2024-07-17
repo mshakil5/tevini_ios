@@ -1,13 +1,10 @@
 
 
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 
-import '../../pk.dart';
 import '../core/utils/image_constant.dart';
 import '../core/values/app_assets.dart';
-import '../theme/themes.dart';
 
 Future<void> loader({String? msg}) => EasyLoading.show(
       status: msg ?? 'Please wait',
