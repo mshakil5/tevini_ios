@@ -1,5 +1,6 @@
-
+import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 import 'package:tenvini/presentation/order_voucher_books_screen/controller/order_voucher_books_controller.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../main.dart';
 import 'controller/side_menu_controller.dart';
@@ -8,7 +9,7 @@ import 'package:flutter/material.dart';
 
 class SideMenuDraweritem extends StatelessWidget {
   //SideMenuDraweritem(this.controller, {Key? key}) : super(key: key);
-  SideMenuDraweritem( {Key? key}) : super(key: key);
+  SideMenuDraweritem({Key? key}) : super(key: key);
   SideMenuController controller = Get.put(SideMenuController());
 
   //SideMenuController controller;
@@ -17,10 +18,10 @@ class SideMenuDraweritem extends StatelessWidget {
   Widget build(BuildContext context) {
     mediaQueryData = MediaQuery.of(context);
 
-    String? account =   localStoreSRF.getString('accNo');
+    String? account = localStoreSRF.getString('accNo');
     print('Is Empty  account  :: $account');
 
-    if(account==''){
+    if (account == '') {
       return Drawer(
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 50.v),
@@ -37,13 +38,12 @@ class SideMenuDraweritem extends StatelessWidget {
                 imagePath: ImageConstant.imgNewlogo12,
                 color: Colors.teal,
                 height: 39.v,
-
                 width: 132.h,
                 margin: EdgeInsets.only(left: 26.h),
               ),
               SizedBox(height: 20),
               drawerMenuItem(0, ImageConstant.imgNavhome, "Dashboard".tr),
-             /* divLine(),
+              /* divLine(),
               drawerMenuItem(1, ImageConstant.imgCar, "lbl_make_a_donation2".tr),
               divLine(),
               drawerMenuItem(2, ImageConstant.imgFrameErrorcontainer,
@@ -76,15 +76,19 @@ class SideMenuDraweritem extends StatelessWidget {
               Spacer(),
               drawerMenuItem(12, ImageConstant.imgReply, "lbl_logout".tr),
               divLine(),
-
-
-              Text('V- 1.0.0',style: TextStyle(fontSize: 14,color: Colors.teal,fontStyle: FontStyle.italic),),
+              Text(
+                'V- 1.0.0',
+                style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.teal,
+                    fontStyle: FontStyle.italic),
+              ),
               SizedBox(height: 50),
             ],
           ),
         ),
       );
-    }else{
+    } else {
       return Drawer(
         child: Container(
           padding: EdgeInsets.symmetric(vertical: 50.v),
@@ -101,14 +105,14 @@ class SideMenuDraweritem extends StatelessWidget {
                 imagePath: ImageConstant.imgNewlogo12,
                 color: Colors.teal,
                 height: 39.v,
-
                 width: 132.h,
                 margin: EdgeInsets.only(left: 26.h),
               ),
               SizedBox(height: 20),
               drawerMenuItem(0, ImageConstant.imgNavhome, "Dashboard".tr),
               divLine(),
-              drawerMenuItem(1, ImageConstant.imgCar, "lbl_make_a_donation2".tr),
+              drawerMenuItem(
+                  1, ImageConstant.imgCar, "lbl_make_a_donation2".tr),
               divLine(),
               drawerMenuItem(2, ImageConstant.imgFrameErrorcontainer,
                   "msg_donation_records".tr),
@@ -116,16 +120,16 @@ class SideMenuDraweritem extends StatelessWidget {
               drawerMenuItem(3, ImageConstant.imgFrameErrorcontainer16x16,
                   "msg_standing_order_records".tr),
               divLine(),
-              drawerMenuItem(
-                  4, ImageConstant.imgFrame16x16, "msg_order_voucher_books2".tr),
+              drawerMenuItem(4, ImageConstant.imgFrame16x16,
+                  "msg_order_voucher_books2".tr),
               divLine(),
               drawerMenuItem(5, ImageConstant.imgFrame1, "lbl_order_record".tr),
               divLine(),
               drawerMenuItem(
                   6, ImageConstant.imgTicket, "msg_waiting_vouchers".tr),
               divLine(),
-             // drawerMenuItem(7, ImageConstant.imgFrame2, "lbl_tevini_card".tr),
-            //  divLine(),
+              // drawerMenuItem(7, ImageConstant.imgFrame2, "lbl_tevini_card".tr),
+              //  divLine(),
               drawerMenuItem(
                   8, ImageConstant.imgFrame3, "msg_view_transactions2".tr),
               divLine(),
@@ -135,8 +139,7 @@ class SideMenuDraweritem extends StatelessWidget {
               drawerMenuItem(
                   10, ImageConstant.imgFrame5, "lbl_contact_top_up".tr),
               divLine(),
-              drawerMenuItem(
-                  13, ImageConstant.imgFrame2, "Transfer To TDF"),
+              drawerMenuItem(13, ImageConstant.imgFrame2, "Transfer To TDF"),
               divLine(),
               drawerMenuItem(11, ImageConstant.imgFrame6, "lbl_profile".tr),
               divLine(),
@@ -144,26 +147,26 @@ class SideMenuDraweritem extends StatelessWidget {
               divLine(),
               SizedBox(height: 10),
 
-              Text('V- 1.0.0',style: TextStyle(fontSize: 14,color: Colors.teal,fontStyle: FontStyle.italic),)
-
+              Text(
+                'V- 1.0.0',
+                style: TextStyle(
+                    fontSize: 14,
+                    color: Colors.teal,
+                    fontStyle: FontStyle.italic),
+              )
             ],
           ),
         ),
       );
     }
-
-
   }
 
-  divLine(){
+  divLine() {
     return SizedBox(
       height: 2.v,
-
       child: Divider(
         indent: 20,
         endIndent: 10,
-
-
       ),
     );
   }
@@ -176,11 +179,13 @@ class SideMenuDraweritem extends StatelessWidget {
           Get.offNamed(AppRoutes.homeContainerScreen);
         } else if (count == 1) {
           Get.back();
-          Get.toNamed(AppRoutes.makeADonationOneScreen);
+          // launchUrlWithToken();
+          // Get.toNamed(AppRoutes.makeADonationOneScreen);
+          Get.toNamed(AppRoutes.donationWebView);
         } else if (count == 2) {
           Get.back();
-          Get.toNamed(AppRoutes.donationRecordScreen,
-
+          Get.toNamed(
+            AppRoutes.donationRecordScreen,
           );
         } else if (count == 3) {
           Get.back();
@@ -190,30 +195,34 @@ class SideMenuDraweritem extends StatelessWidget {
         } else if (count == 4) {
           Get.back();
           Get.delete<OrderVoucherBooksController>();
-          OrderVoucherBooksController voucherCTN=Get.put(OrderVoucherBooksController());
+          OrderVoucherBooksController voucherCTN =
+              Get.put(OrderVoucherBooksController());
           voucherCTN.textEditingControllers.clear();
           voucherCTN.initSQLController();
-          voucherCTN.finalAmount.value=0.0;
-          voucherCTN.isCheckCollection.value=false;
-          voucherCTN.isCheckExpressDelivery.value=false;
+          voucherCTN.finalAmount.value = 0.0;
+          voucherCTN.isCheckCollection.value = false;
+          voucherCTN.isCheckExpressDelivery.value = false;
           voucherCTN.totalOrderController.value.clear();
-          voucherCTN.totalSummery.value=0.00;
-          voucherCTN.total.value=0.00;
+          voucherCTN.totalSummery.value = 0.00;
+          voucherCTN.total.value = 0.00;
 
-          Get.toNamed(AppRoutes.orderVoucherBooksScreen,
+          Get.toNamed(
+            AppRoutes.orderVoucherBooksScreen,
           );
         } else if (count == 5) {
           Get.back();
-          Get.toNamed(AppRoutes.orderRecordScreen,
+          Get.toNamed(
+            AppRoutes.orderRecordScreen,
           );
         } else if (count == 6) {
           Get.back();
-          Get.toNamed(AppRoutes.watingVoucherRecordsScreen,
-
+          Get.toNamed(
+            AppRoutes.watingVoucherRecordsScreen,
           );
         } else if (count == 7) {
           Get.back();
-          Get.toNamed(AppRoutes.updateCardholderScreen,
+          Get.toNamed(
+            AppRoutes.updateCardholderScreen,
           );
         } else if (count == 8) {
           Get.back();
@@ -234,20 +243,15 @@ class SideMenuDraweritem extends StatelessWidget {
           Get.back(closeOverlays: true);
           Get.toNamed(
             AppRoutes.myProfileScreen,
-           // preventDuplicates: false
-
+            // preventDuplicates: false
           );
-
-
-        }
-        else if (count == 13) {
+        } else if (count == 13) {
           Get.back();
           Get.toNamed(
             AppRoutes.transferTDFScreen,
           );
-        }
-        else if (count == 12) {
-           localStoreSRF.clear();
+        } else if (count == 12) {
+          localStoreSRF.clear();
           Get.offNamedUntil(AppRoutes.signInScreen, (route) => false);
         }
       },
@@ -279,6 +283,20 @@ class SideMenuDraweritem extends StatelessWidget {
           ],
         ),
       ),
+    );
+  }
+
+  final FlutterWebviewPlugin _webviewPlugin = FlutterWebviewPlugin();
+
+  void launchUrlWithToken() async {
+    String? token = await localStoreSRF.getString('token');
+    final url = 'https://example.com';
+
+    _webviewPlugin.launch(
+      url,
+      headers: {
+        'Authorization': 'Bearer $token',
+      },
     );
   }
 }

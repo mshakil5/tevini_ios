@@ -5,6 +5,7 @@ import 'package:tenvini/app/modules/charity_sign_up_screen/binding/charity_sign_
 import 'package:tenvini/app/modules/charity_sign_up_screen/charity_sign_up_screen.dart';
 import 'package:tenvini/app/modules/forget_password_viewweb/bindings/forget_password_viewweb_binding.dart';
 import 'package:tenvini/app/modules/tivini_card_viewweb/bindings/tivini_card_webview_binding.dart';
+import 'package:tenvini/app/modules/tivini_card_viewweb/views/donation_webview.dart';
 import 'package:tenvini/app/modules/tivini_card_viewweb/views/tivini_card_webview.dart';
 import 'package:tenvini/presentation/donor_change_password/bindings/donor_change_password_binding.dart';
 import 'package:tenvini/presentation/donor_change_password/views/donor_change_password_view.dart';
@@ -100,6 +101,7 @@ class AppRoutes {
   static const String signInScreen = '/sign_in_screen';
   static const String forget_password = '/forget_password';
   static const String tiviniCardWebView = '/tiviniCardWebView';
+  static const String donationWebView = '/donationWebview';
 
   static const String forgetPasswordScreen = '/forget_password_screen';
 
@@ -224,6 +226,15 @@ class AppRoutes {
     GetPage(
       name: tiviniCardWebView,
       page: () => TiviniCardWebView(),
+      bindings: [
+        TiviniCardWebViewBinding(),
+      ],
+    ),
+
+    // TODO
+    GetPage(
+      name: donationWebView,
+      page: () => DonationWebview(),
       bindings: [
         TiviniCardWebViewBinding(),
       ],

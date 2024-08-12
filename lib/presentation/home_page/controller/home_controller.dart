@@ -1,3 +1,4 @@
+import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:intl/intl.dart';
@@ -23,15 +24,15 @@ import '../../my_profile_screen/controller/my_profile_controller.dart';
 import '../../order_record_screen/models/order_record_model.dart';
 
 import 'package:http/http.dart' as http;
-class HomeController extends GetxController {
 
+class HomeController extends GetxController {
   final isAnimated = false.obs;
   final isBalanceShown = false.obs;
   final isBalance = true.obs;
-  final isTDF=false.obs;
+  final isTDF = false.obs;
 
   Rx<ProfileInfoModel> getUserInfo = ProfileInfoModel().obs;
-  final currentBalance='0.0'.obs;
+  final currentBalance = '0.0'.obs;
   MyProfileController profile = Get.put(MyProfileController());
   late ApiClient _apiClient;
   TextEditingController searchController = TextEditingController();
@@ -46,16 +47,17 @@ class HomeController extends GetxController {
 
   final transferTDFList = List<DonationRecordModel>.empty(growable: true).obs;
 
-  final donationRecordDataList1 = List<DonationRecordModel>.empty(growable: true).obs;
+  final donationRecordDataList1 =
+      List<DonationRecordModel>.empty(growable: true).obs;
 
-  final donationRecordDataDetailsList = List<DonationDetailsModel>.empty(growable: true).obs;
+  final donationRecordDataDetailsList =
+      List<DonationDetailsModel>.empty(growable: true).obs;
 
   RxList<DonationRecordModel> searchResult1 =
       List<DonationRecordModel>.empty(growable: true).obs;
 
   RxList<DonationCalculationModel> searchRegularIncome =
       List<DonationCalculationModel>.empty(growable: true).obs;
-
 
   RxList<StandingOrderRecordModel> standOrderRecordDataList =
       List<StandingOrderRecordModel>.empty(growable: true).obs;
@@ -74,9 +76,9 @@ class HomeController extends GetxController {
   RxList<Alltransaction> pendingTransactionDataList =
       List<Alltransaction>.empty(growable: true).obs;
 
-
   final count = 0.obs;
-  final makeADonationModelObj = List<BeneficiaryGetAllCharityModel>.empty(growable: true).obs;
+  final makeADonationModelObj =
+      List<BeneficiaryGetAllCharityModel>.empty(growable: true).obs;
 
   RxList<DonationCalculationModel> donationCalculationList =
       List<DonationCalculationModel>.empty(growable: true).obs;
@@ -95,25 +97,23 @@ class HomeController extends GetxController {
   final isSwitchValueList = [].obs;
 
   BeneficiaryGetAllCharityModel dummyData = BeneficiaryGetAllCharityModel(
-      id: 0,
-      name: 'No name',
-      address: 'address',
-      number: 'number',
-      email: 'email@gmail.com',
-      password: '***',
-      bankStatement: '',
-      town: 'town',
-      postCode: 'postCode',
-      accNo: 'accNo',
-      balance: 'balance',
-      pending: 'pending',
-      status: 'status',
-      updatedBy: 'updatedBy',
-      createdBy: 'createdBy',
-      createdAt: DateTime.now(),
-      updatedAt: DateTime.now(),
-
-
+    id: 0,
+    name: 'No name',
+    address: 'address',
+    number: 'number',
+    email: 'email@gmail.com',
+    password: '***',
+    bankStatement: '',
+    town: 'town',
+    postCode: 'postCode',
+    accNo: 'accNo',
+    balance: 'balance',
+    pending: 'pending',
+    status: 'status',
+    updatedBy: 'updatedBy',
+    createdBy: 'createdBy',
+    createdAt: DateTime.now(),
+    updatedAt: DateTime.now(),
   );
   var startDate = DateTime.utc(2024, 01, 01);
   var endDate = DateTime.utc(2024, 01, 31);
@@ -131,10 +131,13 @@ class HomeController extends GetxController {
   void onInit() async {
     token = await localStoreSRF.getString('token');
     _apiClient = ApiClient();
+    print(token! + 'init');
+    await fetchDonationRequest();
     await getUserDetailsInfo();
     await getBeneficiaryGetAllCharityCTR();
+
     //await firstSyncAPI();
-   // await secondSyncAPI();
+    // await secondSyncAPI();
     allSync();
 
     ratesModel = fetchRates();
@@ -150,8 +153,7 @@ class HomeController extends GetxController {
     isSwitchValueList.clear();
   }
 
-
-  allSync(){
+  allSync() {
     firstSyncAPI();
     secondSyncAPI();
   }
@@ -161,15 +163,14 @@ class HomeController extends GetxController {
   void changeState() async {
     isAnimated.value = true;
     isBalance.value = false;
-    await Future.delayed(const Duration(milliseconds: 800),
-          () => isBalanceShown.value = true
-    );
-    await Future.delayed(const Duration(seconds: 3),
-            () => isBalanceShown.value = false);
-    await Future.delayed(const Duration(milliseconds: 200),
-            () => isAnimated.value = false);
-    await Future.delayed(const Duration(milliseconds: 800),
-            () => isBalance.value = true);
+    await Future.delayed(
+        const Duration(milliseconds: 800), () => isBalanceShown.value = true);
+    await Future.delayed(
+        const Duration(seconds: 3), () => isBalanceShown.value = false);
+    await Future.delayed(
+        const Duration(milliseconds: 200), () => isAnimated.value = false);
+    await Future.delayed(
+        const Duration(milliseconds: 800), () => isBalance.value = true);
   }
 
   firstSyncAPI() async {
@@ -181,13 +182,70 @@ class HomeController extends GetxController {
   secondSyncAPI() async {
     await getDonationRecordDetailsCTR();
     await getAllTransactionRecordCTR();
-   // await getWaitingVoucherRecordCTR();
-   // await getStandOrderRecordCTR();
+    // await getWaitingVoucherRecordCTR();
+    // await getStandOrderRecordCTR();
+  }
+
+  /// donation request
+  ///
+  RxInt donationRequests = 0.obs;
+
+  Future<void> fetchDonationRequest() async {
+    print('fetchDonationRequest');
+    try {
+      var response = await http.get(Uri.parse(AppUrl.donationRequest),
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token'
+          });
+      if (response.statusCode == 200) {
+        // final ratesModel = ratesModelFromJson(response.body);
+        print('donation request: ${response.body}');
+        donationRequests = jsonDecode(response.body)['donationRequest'].length.obs;
+        // return ratesModel;
+      } else {
+        print('Failed to fetch rates: ${response.statusCode}');
+        print('Please switch on your mobile data and restart the app.');
+        return Future.error(
+            'Please switch on your mobile data and restart the app.');
+      }
+    } catch (e) {
+      print('Error fetching rates: $e');
+      print('Please switch on your mobile data and restart the app.');
+      return Future.error(
+          'Please switch on your mobile data and restart the app.');
+    }
+  }
+
+  Future<void> removeAllDonationRequest() async {
+    print('cancel donation request');
+    donationRequests = 0.obs;
+    try {
+      var response = await http.post(Uri.parse(AppUrl.closeLink), headers: {
+        'Content-Type': 'application/json',
+        'Authorization': 'Bearer $token'
+      });
+      if (response.statusCode == 200) {
+        print(response.body);
+        // final ratesModel = ratesModelFromJson(response.body);
+        // print('donation request: ${response.body}');
+        // donationRequests = jsonDecode(response.body)['donationRequest'].length;
+        // return ratesModel;
+      } else {
+        print('Failed to fetch rates: ${response.statusCode}');
+        print('Please switch on your mobile data and restart the app.');
+        return Future.error(
+            'Please switch on your mobile data and restart the app.');
+      }
+    } catch (e) {
+      print('Error fetching rates: $e');
+      print('Please switch on your mobile data and restart the app.');
+      return Future.error(
+          'Please switch on your mobile data and restart the app.');
+    }
   }
 
   /// TDF TO Transfer & Currency Convert
-
-
 
   Future<RatesModel> fetchRates() async {
     try {
@@ -234,62 +292,51 @@ class HomeController extends GetxController {
     print('Url :: ${ApiURL.createTransferTDFUrl}');
     String? token = await localStoreSRF.getString('token');
 
-
-    if(tdfAccNumberController.text=='' && tdfAccToTransferController.text==''){
-          return Helpers.snackbarForErorr(
-              titleText: 'Error Alert',
-              bodyText: 'Please Fill out this field');
-        }
-         else if(double.parse(tdfAccToTransferController.value.text.toString())<18){
-          return Helpers.snackbarForErorr(
-              titleText: ' Required',
-              bodyText: 'Minimum transfer is £18.00');
-
-        }
-        else {
-          final response = await _apiClient.connection(
-            API_TYPE: '',
-            apiType: 'POST',
-            REQUEST_TYPE: '',
-            REQUEST_DATA: {
-              "tdfamount": tdfAccToTransferController.text,
-              "tdfaccount": tdfAccNumberController.text
-            },
-            customheader: {
-              'Content-Type': 'application/json',
-              'Authorization': 'Bearer $token'
-            },
-
-            apiUrl: ApiURL.createTransferTDFUrl,
-            PARAM: {},
-          );
-          if (response != null) {
-            tdfAccToTransferController.clear();
-            tdfAccNumberController.clear();
-            isTDF.value=false;
-           await homeLatestTransactionsCTR();
-            getUserDetailsInfo();
-            //
+    if (tdfAccNumberController.text == '' &&
+        tdfAccToTransferController.text == '') {
+      return Helpers.snackbarForErorr(
+          titleText: 'Error Alert', bodyText: 'Please Fill out this field');
+    } else if (double.parse(tdfAccToTransferController.value.text.toString()) <
+        18) {
+      return Helpers.snackbarForErorr(
+          titleText: ' Required', bodyText: 'Minimum transfer is £18.00');
+    } else {
+      final response = await _apiClient.connection(
+        API_TYPE: '',
+        apiType: 'POST',
+        REQUEST_TYPE: '',
+        REQUEST_DATA: {
+          "tdfamount": tdfAccToTransferController.text,
+          "tdfaccount": tdfAccNumberController.text
+        },
+        customheader: {
+          'Content-Type': 'application/json',
+          'Authorization': 'Bearer $token'
+        },
+        apiUrl: ApiURL.createTransferTDFUrl,
+        PARAM: {},
+      );
+      if (response != null) {
+        tdfAccToTransferController.clear();
+        tdfAccNumberController.clear();
+        isTDF.value = false;
+        await homeLatestTransactionsCTR();
+        getUserDetailsInfo();
+        //
         Helpers.snackbarForSucess(
-                titleText: 'Successful Alert',
-                bodyText: "TDF transferred successfully.");
-
-          } else {
-            tdfAccToTransferController.clear();
-            tdfAccNumberController.clear();
-            Helpers.snackbarForErorr(
-                titleText: ' Error Alert',
-                bodyText: 'TDF has Field');
-          }
-        }
-
+            titleText: 'Successful Alert',
+            bodyText: "TDF transferred successfully.");
+      } else {
+        tdfAccToTransferController.clear();
+        tdfAccNumberController.clear();
+        Helpers.snackbarForErorr(
+            titleText: ' Error Alert', bodyText: 'TDF has Field');
+      }
+    }
   }
-
-
 
   /// 95%
   switchOnOFFStandingDonation(int id) async {
-
     final response = await _apiClient.connection(
       API_TYPE: '',
       apiType: 'POST',
@@ -325,11 +372,10 @@ class HomeController extends GetxController {
               primary: Colors.teal, // header background color
               onPrimary: Colors.black, // header text color
               onSurface: Colors.black,
-
             ),
             textButtonTheme: TextButtonThemeData(
               style: TextButton.styleFrom(
-                textStyle:TextStyle(fontSize: 16),
+                textStyle: TextStyle(fontSize: 16),
                 //fixedSize: Size.square(14.3),
                 foregroundColor: Colors.teal, // button text color
               ),
@@ -362,11 +408,10 @@ class HomeController extends GetxController {
               primary: Colors.teal, // header background color
               onPrimary: Colors.black, // header text color
               onSurface: Colors.black,
-
             ),
             textButtonTheme: TextButtonThemeData(
               style: TextButton.styleFrom(
-                textStyle:TextStyle(fontSize: 16),
+                textStyle: TextStyle(fontSize: 16),
                 //fixedSize: Size.square(14.3),
                 foregroundColor: Colors.teal, // button text color
               ),
@@ -403,16 +448,11 @@ class HomeController extends GetxController {
     }
 
     donationRecordDataList.forEach((searchValue) {
-
       if (searchValue.charityName!.toLowerCase().contains(text.toLowerCase())) {
         searchResult1.add(searchValue);
       }
     });
-
-
   }
-
-
 
   onSearchTextChangedRegularIncome(String text) async {
     print('Check >>>> $text');
@@ -422,15 +462,11 @@ class HomeController extends GetxController {
     }
 
     donationCalculationListDetails.forEach((searchValue) {
-
       if (searchValue.incomeTitle.toLowerCase().contains(text.toLowerCase())) {
         searchRegularIncome.add(searchValue);
       }
     });
-
-
   }
-
 
   List<DonationRecordModel> itemsBetweenDates({
     required List<DonationRecordModel> dates,
@@ -486,20 +522,20 @@ class HomeController extends GetxController {
     if (response != null) {
       final Map<String, dynamic> mapdata = response.data;
 
-      thisTax.value=mapdata['currentyramount'];
-      lastTax.value=mapdata['totalamount'];
+      thisTax.value = mapdata['currentyramount'];
+      lastTax.value = mapdata['totalamount'];
       print('thisTax');
       print(thisTax.value);
       print(thisTax.value);
 
-      print('HomeController.homeLatestTransactionsCTR Dashoard  ::${mapdata.toString()} ');
+      print(
+          'HomeController.homeLatestTransactionsCTR Dashoard  ::${mapdata.toString()} ');
 
-      if(mapdata['pending_transactions']==0){
+      if (mapdata['pending_transactions'] == 0) {
         ///
-      }else{
+      } else {
         pendingTransaction.value = mapdata['pending_transactions'];
       }
-
 
       final list = (mapdata['tamount'] as List)
           .map((x) => TransactionModel.fromJson(x))
@@ -507,7 +543,6 @@ class HomeController extends GetxController {
       leastTransaction.value = list;
       print('homeLatestTransactionsCTR  lng ${leastTransaction.length}');
     } else {
-
       leastTransaction.value = [];
     }
   }
@@ -535,23 +570,25 @@ class HomeController extends GetxController {
           .toList();
       donationRecordDataList.value = list;
 
-      int index=-1;
-       donationRecordDataList.forEach((searchValue) {
-         index++;
+      int index = -1;
+      donationRecordDataList.forEach((searchValue) {
+        index++;
         if (makeADonationModelObj.isNotEmpty) {
-
           BeneficiaryGetAllCharityModel charity =
-          makeADonationModelObj.firstWhere((BeneficiaryGetAllCharityModel element) => int.parse(element.id.toString()) == int.parse(searchValue.charityId.toString()),
-              orElse: () => dummyData);
+              makeADonationModelObj.firstWhere(
+                  (BeneficiaryGetAllCharityModel element) =>
+                      int.parse(element.id.toString()) ==
+                      int.parse(searchValue.charityId.toString()),
+                  orElse: () => dummyData);
 
-          if(int.parse(searchValue.charityId.toString())==int.parse(charity.id.toString())){
-
-            donationRecordDataList[index].charityName=charity.name??'';
+          if (int.parse(searchValue.charityId.toString()) ==
+              int.parse(charity.id.toString())) {
+            donationRecordDataList[index].charityName = charity.name ?? '';
             print('ck Name :: ${donationRecordDataList[index].charityName}');
           }
         }
       });
-      donationRecordDataList= donationRecordDataList1;
+      donationRecordDataList = donationRecordDataList1;
     } else {
       donationRecordDataList.value = [];
     }
@@ -559,9 +596,8 @@ class HomeController extends GetxController {
     print(' getDonationRecordCTR lng :${donationRecordDataList.length}');
   }
 
-  Future<void> reloadDataSyncFormHomeController()async{
-
-      token = await localStoreSRF.getString('token');
+  Future<void> reloadDataSyncFormHomeController() async {
+    token = await localStoreSRF.getString('token');
     _apiClient = ApiClient();
     await getUserDetailsInfo();
     await getBeneficiaryGetAllCharityCTR();
@@ -588,7 +624,9 @@ class HomeController extends GetxController {
     if (response != null) {
       final Map<String, dynamic> mapdata = response.data;
       debugPrint('HomeController.getDonationRecordCTR ${response.statusCode}');
-      final list = (mapdata['response']['data'] as List).map((x) => DonationDetailsModel.fromJson(x)).toList();
+      final list = (mapdata['response']['data'] as List)
+          .map((x) => DonationDetailsModel.fromJson(x))
+          .toList();
       donationRecordDataDetailsList.value = list;
     } else {
       donationRecordDataDetailsList.value = [];
@@ -613,7 +651,6 @@ class HomeController extends GetxController {
     );
 
     if (response != null) {
-
       final Map<String, dynamic> mapData = response.data;
       print('HomeController.getDonationRecordCTR ${mapData}');
       final list = (mapData['response']['data'] as List)
@@ -621,65 +658,62 @@ class HomeController extends GetxController {
           .toList();
 
       list.forEach((stdDonor) {
-        if(stdDonor.status=='1'){
+        if (stdDonor.status == '1') {
           isSwitchValueList.add(true);
-        }else{
+        } else {
           isSwitchValueList.add(false);
         }
-        print('HomeController.onSearchTextChanged Id >>>> ${stdDonor.charityId}');
+        print(
+            'HomeController.onSearchTextChanged Id >>>> ${stdDonor.charityId}');
 
         String? charityName;
         if (makeADonationModelObj.isNotEmpty) {
-          BeneficiaryGetAllCharityModel charity = makeADonationModelObj.firstWhere((BeneficiaryGetAllCharityModel element) =>
-          element.id == int.parse(stdDonor.charityId.toString()),
-              orElse: () => dummyData);
+          BeneficiaryGetAllCharityModel charity =
+              makeADonationModelObj.firstWhere(
+                  (BeneficiaryGetAllCharityModel element) =>
+                      element.id == int.parse(stdDonor.charityId.toString()),
+                  orElse: () => dummyData);
           charityName = charity.name;
-          if(int.parse(stdDonor.charityId.toString())==int.parse(charity.id.toString())){
+          if (int.parse(stdDonor.charityId.toString()) ==
+              int.parse(charity.id.toString())) {
             print('match');
             standOrderRecordDataList.add(StandingOrderRecordModel(
-                id:stdDonor.id,
-                userId:stdDonor.userId,
-                charityId:stdDonor.charityId,
-                charityName:charity.name,
-                amount:stdDonor.amount,
-                currency:stdDonor.currency,
-                anoDonation:stdDonor.anoDonation,
-                standingOrder:stdDonor.standingOrder,
-               // confirmDonation:searchValue.confirmDonation,
-                charitynote:stdDonor.charitynote,
-                mynote:stdDonor.mynote,
-                notification:stdDonor.notification,
-                status:stdDonor.status,
-                updatedBy:stdDonor.updatedBy,
-                createdBy:stdDonor.createdAt,
-                createdAt:stdDonor.createdAt,
-                updatedAt:stdDonor.updatedAt,
+                id: stdDonor.id,
+                userId: stdDonor.userId,
+                charityId: stdDonor.charityId,
+                charityName: charity.name,
+                amount: stdDonor.amount,
+                currency: stdDonor.currency,
+                anoDonation: stdDonor.anoDonation,
+                standingOrder: stdDonor.standingOrder,
+                // confirmDonation:searchValue.confirmDonation,
+                charitynote: stdDonor.charitynote,
+                mynote: stdDonor.mynote,
+                notification: stdDonor.notification,
+                status: stdDonor.status,
+                updatedBy: stdDonor.updatedBy,
+                createdBy: stdDonor.createdAt,
+                createdAt: stdDonor.createdAt,
+                updatedAt: stdDonor.updatedAt,
                 payments: stdDonor.payments,
                 numberPayments: stdDonor.numberPayments,
                 paymentMade: stdDonor.paymentMade,
                 starting: stdDonor.starting,
-                interval: stdDonor.interval
-            )
-            );
-
-          }else{
+                interval: stdDonor.interval));
+          } else {
             print('not match ');
           }
-        }else{
+        } else {
           print('else if ');
         }
-
       });
-      donationRecordDataList= donationRecordDataList1;
-
-
+      donationRecordDataList = donationRecordDataList1;
     } else {
       print('HomeController.getStandOrderRecordCTR');
       standOrderRecordDataList.value = [];
     }
     print('HomeCon.getStandOrderRecordCTR ${standOrderRecordDataList.length}');
   }
-
 
   /// done
   Future getAllTransactionRecordCTR() async {
@@ -733,11 +767,11 @@ class HomeController extends GetxController {
       outTransactionsDataList.value = [];
       pendingTransactionDataList.value = [];
     }
-    print('HomeCon.getStandOrderRecordCTR ALL  ${allTransactionDataList.length}');
+    print(
+        'HomeCon.getStandOrderRecordCTR ALL  ${allTransactionDataList.length}');
     print('HomeCon.getStandOrderRecordCTR In  ${inTransactionDataList.length}');
     print('Hon.getStdOrderRecordCTR lng ${tAmountTransactionDataList.length}');
   }
-
 
   /// done
   Future getBeneficiaryGetAllCharityCTR() async {
@@ -788,8 +822,6 @@ class HomeController extends GetxController {
     if (response != null) {
       final Map<String, dynamic> mapdata = response.data;
 
-
-
       teviniDonation.value = mapdata['tevini_donation'];
       otherDonation.value = mapdata['otherdonation'];
       var avi = mapdata['availabledonation'];
@@ -801,7 +833,7 @@ class HomeController extends GetxController {
           .map((x) => DonationCalculationModel.fromJson(x))
           .toList();
       donationCalculationList.value = list;
-      donationCalculationListDetails.value=list;
+      donationCalculationListDetails.value = list;
     } else {
       donationCalculationList.value = [];
       donationCalculationListDetails.value = [];
@@ -812,9 +844,9 @@ class HomeController extends GetxController {
 
   /// done
   Future getUserDetailsInfo() async {
-
     print('MyProfileController.getUserProfileInfo');
     String? token = await localStoreSRF.getString('token');
+    debugPrint('token :' + token!);
     final response = await _apiClient.connection(
       API_TYPE: 'GET',
       apiType: 'GET',
@@ -831,16 +863,16 @@ class HomeController extends GetxController {
     if (response != null) {
       final Map<String, dynamic> mapdata = response.data;
       print('HomeController.getUserDetailsInfo >> ${mapdata.toString()}');
-      var info=mapdata['response']['data'];
+      var info = mapdata['response']['data'];
       getUserInfo.value = ProfileInfoModel.fromJson(info);
-      localStoreSRF.setString('balance',getUserInfo.value.balance??'');
-   //   String bal=localStoreSRF.getString('balance')??'';
-     // currentBalance.value=bal;
+      localStoreSRF.setString('balance', getUserInfo.value.balance ?? '');
+      //   String bal=localStoreSRF.getString('balance')??'';
+      // currentBalance.value=bal;
 
-      String? balance= mapdata['response']['data']['balance'];
-      localStoreSRF.setString('balance',balance??'0.00');
-      String bal=localStoreSRF.getString('balance')??'0.00';
-      currentBalance.value=bal;
+      String? balance = mapdata['response']['data']['balance'];
+      localStoreSRF.setString('balance', balance ?? '0.00');
+      String bal = localStoreSRF.getString('balance') ?? '0.00';
+      currentBalance.value = bal;
       print('currentBalance :${currentBalance}');
       print('currentBalance :${currentBalance}');
     }
